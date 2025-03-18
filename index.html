@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookies Consent</title>
+    <style>
+      .cookie-banner {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #222;
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        display: none;
+      }
+      .cookie-banner button {
+        margin-left: 10px;
+        padding: 5px 10px;
+        border: none;
+        cursor: pointer;
+      }
+      .accept-btn {
+        background: green;
+        color: white;
+      }
+      .reject-btn {
+        background: red;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cookie-banner" class="cookie-banner">
+      Этот сайт использует cookies. Продолжая использовать сайт, вы соглашаетесь
+      с этим.
+      <button class="accept-btn">Принять</button>
+      <button class="reject-btn">Отклонить</button>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const banner = document.getElementById("cookie-banner");
+        const acceptBtn = document.querySelector(".accept-btn");
+        const rejectBtn = document.querySelector(".reject-btn");
+
+        // Проверяем, есть ли cookie "userConsent"
+        if (!document.cookie.includes("userConsent=true")) {
+          banner.style.display = "block";
+        }
+
+        acceptBtn.addEventListener("click", function () {
+          document.cookie = "userConsent=true; path=/; max-age=31536000"; // 1 год
+          banner.style.display = "none";
+        });
+
+        rejectBtn.addEventListener("click", function () {
+          document.cookie = "userConsent=false; path=/; max-age=31536000";
+          banner.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>
